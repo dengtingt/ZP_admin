@@ -1,0 +1,126 @@
+<!-- =========================== 内容 =============================== -->
+<div class="empjob">
+	<!-- 导航栏 -->
+	<div class="list col-2">
+		求职列表
+	</div>
+	<!-- /导航栏 -->
+	<!-- 内容 -->
+	<div class="content">
+		<!-- 头部检索 -->
+		<div class="header row">
+			<div>
+				<button class="btn btn-outline-secondary btn-sm">待联系</button>
+				<button class="btn btn-outline-secondary btn-sm">稍后联系</button>
+				<button class="btn btn-outline-secondary btn-sm">已联系</button>
+			</div>	
+		</div>
+		<!-- /头部检索 -->
+		<!-- 表格 -->
+		<table class="table" id="empjob_tbl">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>求职人</th>
+					<th>联系方式</th>
+					<th>求职岗位</th>
+					<th>简历</th>
+					<th>申请时间</th>
+					<th>求职状态</th>
+					<th>备注</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+		<!-- /表格 -->
+	</div>
+	<!-- /内容 -->
+</div>
+
+
+<!-- ============================= 样式 ================================== -->
+<style>
+	.empjob {
+		background-color: #F1F1F1;
+		width: 100%;
+		height: 100%;
+		font-size: 14px;
+	}
+	.list {
+		box-sizing: border-box;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		border-top: 3px solid #0072E3;
+		background-color: #fff;
+	}
+	.header {
+		box-sizing: border-box;
+		padding: 20px 30px 10px;
+	}
+
+
+	.content {
+		height: 100%;
+		background-color: #fff;
+	}
+
+	#empjob_tbl {
+		text-align: center;
+		margin-top: 0;
+	}
+	#empjob_tbl th {
+		text-align: center;
+	}
+	span {
+		background-color: #0072E3;
+		color: #fff;
+		font-size: 12px;
+		box-sizing: border-box;
+		padding: 0 5px;
+	}
+</style>
+
+
+<!-- ========================== js ================================= -->
+
+<script>
+	// ========================== 提前声明的代码
+	var baseURL = "http://203.195.246.58:7777";
+
+	// 初始化数据
+	function initData(){
+		var url = "/EmploymentJobhunter/findAllWithJobhAndEmpl"
+		$.get(baseURL+url,function(response){
+			$("#empjob_tbl > tbody").empty();
+			response.data.forEach(function(item){
+				var newTr = $(`<tr>
+					<td><input type="checkbox" value="`+item.id+`"></td>
+					<td>`+item.jobhunter.realname+`</td>
+					<td>`+item.jobhunter.telephone+`</td>
+					<td>`+item.employment.job+`</td>
+					<td>
+						<a class="btn_info" href="javascript:void(0)" style="color:#40b6ff;">查看</a>
+					</td>
+					<td>`+item.askTime+`</td>
+					<td>
+						<p>`+item.currentStatus+` ^</p>
+					</td>
+					<td>
+						<span>`+item.remark+`</span>
+					</td>
+				</tr>`);
+				$("#empjob_tbl > tbody").append(newTr);
+			});
+		});
+	}
+
+	// ==============================文档加载后执行
+	$(function(){
+		// 初始化加载
+		initData();
+
+	})
+</script>

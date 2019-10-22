@@ -1,0 +1,757 @@
+<!-- =========================== 内容 =============================== -->
+<div class="jobhunter">
+	<!-- 导航栏 -->
+	<div class="container-fluid">
+		<div class="jobhunter_nav row">
+			<div class="list col-2">
+				用户列表
+			</div>
+		</div>
+	</div>
+	<!-- /导航栏 -->
+	<!-- 内容 -->
+	<div class="content">
+		<!-- 头部检索 -->
+		<div class="header row">
+			<ul class="col-8">
+				<select id="education" class="form-control">
+					<option value="">学历</option>
+				</select>
+				<select id="gender" class="form-control">
+					<option value="">性别</option>
+				</select>
+				<select id="jobhunter_id" class="form-control">
+					<option value="">用户id</option>
+				</select>
+				<select id="username" class="form-control">
+					<option value="">用户名</option>
+				</select>
+			</ul>	
+			<div class="col-4 text-right">
+				<button class="btn btn-warning btn-lg mr-2" id="btn_add_jobhunter">
+					<i class="fa fa-info-circle mr-1"></i>添加用户
+				</button>
+				<button class="btn btn-primary btn-lg mr-3">
+					<i class="fa fa-info-circle mr-1"></i>导入用户
+				</button>
+			</div>
+		</div>
+		<!-- /头部检索 -->
+		<!-- 表格 -->
+		<table class="table" id="jobhunter_tbl">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>用户名</th>
+					<th>姓名</th>
+					<th>手机号</th>
+					<th>性别</th>
+					<th>出生年月</th>
+					<th>最高学历</th>
+					<th>详情</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+		<!-- /表格 -->
+	</div>
+	<!-- /内容 -->
+</div>
+
+<!-- 模态框 -->
+<div class="modal fade" id="jobhunterModal" tabindex="-1">
+  	<div class="modal-dialog modal-lg" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<h5 class="modal-title" id="exampleModalLabel">添加求职者信息</h5>
+        		<button type="button" class="close" onclick="closeJobhunterModal()">
+          			<span>&times;</span>
+        		</button>
+      		</div>
+      		<div class="modal-body">
+  				<!-- 表单 -->
+				<form action="/register" id="jobhunter_form">
+					<input type="hidden" name="id">
+					<!-- 用户名 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_username">用户名：</label>
+						</div>
+						<div class="col-9">
+							<input id="input_username" name="username" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- /用户名 -->
+			
+					<!-- 姓名 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_realname">姓名：</label>
+						</div>
+						<div class="col-9">
+							<input id="input_realname" name="realname" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- / 姓名 -->
+
+					<!-- 密码 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_password">密码：</label>
+						</div>
+						<div class="col-9">
+							<input id="input_password" name="password" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- / 密码 -->
+
+					<!-- 手机号 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_telephone">手机号：</label>
+						</div>
+						<div class="col-9">
+							<input id="input_telephone" name="telephone" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- / 手机号 -->
+
+					<!-- 性别 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_gender">性别：</label>
+						</div>
+						<div class="col-9">
+							<select id="input_gender"  name="gender" class="form-control">
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>
+						</div>
+					</div>
+					<!-- / 性别 -->
+
+					<!-- 出生年月 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_birth">出生年月：</label>
+						</div>
+						<div class="col-9">
+							<input id="input_birth" name="birth" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- / 出生年月 -->
+
+					<!-- 最高学历 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_education">最高学历：</label>
+						</div>
+						<div class="col-9">
+							<input id="input_education" name="education" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- / 最高学历 -->
+
+					<!-- 工作时间 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_workTime">工作时间：</label>
+						</div>
+						<div class="col-9">
+							<input id="input_workTime" name="workTime" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- / 工作时间 -->
+
+					<!-- 目前现状 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_currentStatus">目前现状：</label>
+						</div>
+						<div class="col-9">
+							<input id="input_currentStatus" name="currentStatus" type="text" class="form-control">
+						</div>
+					</div>
+					<!-- / 目前现状 -->
+
+					<!-- 简历 -->
+					<div class="form-group row">
+						<div class="col-2 text-right">
+							<label for="input_resume">简历：</label>
+						</div>
+						<div class="col-9">
+							<textarea id="input_resume" name="resume" type="text" class="form-control"></textarea>
+						</div>
+					</div>
+					<!-- / 简历 -->
+				</form>
+				<!-- / 表单 -->     
+
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-secondary" onclick="closeJobhunterModal()">取消</button>
+       		 	<button type="button" class="btn btn-primary" id="save">保存</button>
+      		</div>
+    	</div>
+  	</div>
+</div>
+<!-- /模态框 -->
+
+<!-- 详情模态框 -->
+<div class="modal fade" id="detailsModal" tabindex="-1">
+  	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<h5 class="modal-title" id="exampleModalLabel">用户详情信息</h5>
+        		<button type="button" class="close" onclick="closeDetailsModal()">
+          			<span>&times;</span>
+        		</button>
+      		</div>
+      		<div class="modal-body">
+      			<!-- 详情内容 -->
+				<div id="details_content">
+
+				</div>
+				<!-- /详情内容 -->  
+
+      		</div>
+    	</div>
+  	</div>
+</div>
+<!-- /详情模态框 -->
+<!-- ============================= 样式 ================================== -->
+<style>
+	.jobhunter {
+		background-color: #F1F1F1;
+		width: 100%;
+		height: 100%;
+		font-size: 14px;
+	}
+	.list {
+		box-sizing: border-box;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		border-top: 3px solid #0072E3;
+		background-color: #fff;
+	}
+	.jobhunter_nav div button {
+		color: #fff;
+	}
+	.header {
+		box-sizing: border-box;
+		padding: 20px 0;
+	}
+	.header .btns,
+	.header ul {
+		line-height: 30px;
+		color: #999;
+		margin-bottom: 0;
+	}
+
+	.header select {
+		display: inline-block;
+		width: 130px;
+		height: 3em;
+		margin-left: 10px;
+		border-radius: 3px;
+	}
+
+
+	.content {
+		height: 100%;
+		background-color: #fff;
+	}
+
+	#jobhunter_tbl {
+		text-align: center;
+		margin-top: 0;
+	}
+	#jobhunter_tbl th {
+		background-color: #333;
+		color: #fff;
+		text-align: center;
+	}
+</style>
+
+
+<!-- ========================== js ================================= -->
+
+<script>
+	// ========================== 提前声明的代码
+	var baseURL = "http://203.195.246.58:7777";
+
+	// 初始化数据
+	function initData(){
+		var url = "/Jobhunter/findAll"
+		$.get(baseURL+url,function(response){
+			$("#jobhunter_tbl > tbody").empty();
+			response.data.forEach(function(item){
+				var newTr = $(`<tr>
+					<td><input type="checkbox" value="`+item.id+`"></td>
+					<td>`+item.username+`</td>
+					<td>`+item.realname+`</td>
+					<td>`+item.telephone+`</td>
+					<td>`+item.gender+`</td>
+					<td>`+item.birth+`</td>
+					<td>`+item.education+`</td>
+					<td>
+						<a class="btn_details" href="javascript:void(0)" style="color:#40b6ff;">查看</a>
+					</td>
+					<td>
+						<a class="btn_del" href="javascript:void(0)" style="color:#40b6ff;">删除</a>
+						<a class="btn_upd" href="javascript:void(0)" style="color:#40b6ff;">修改</a>
+					</td>
+				</tr>`);
+				$("#jobhunter_tbl > tbody").append(newTr);
+			});
+		});
+	}
+
+	// 关闭模态框
+	function closeJobhunterModal(){
+		$("#jobhunterModal").modal("hide");
+	}
+
+	// 查询所有学历，放入搜索下拉框中
+	function searchEducation(){
+		var url = '/Jobhunter/findAll';
+		$.get(baseURL+url,function(result){
+			result.data.forEach(function(item){
+				var newOption = $(`
+					<option value="`+item.education+`">`+item.education+`</option>
+				`);
+				// 将顾客id追加到搜索下拉框中
+				$('#education').append(newOption);
+			})
+		});
+	}
+
+	// 查询所有性别，放入搜索下拉框中
+	function searchGender(){
+		var url = '/Jobhunter/findAll';
+		$.get(baseURL+url,function(result){
+			result.data.forEach(function(item){
+				var newOption = $(`
+					<option value="`+item.gender+`">`+item.gender+`</option>
+				`);
+				$('#gender').append(newOption);
+			})
+		});
+	}
+
+	// 查询所有用户id，放入搜索下拉框中
+	function searchJobhunterId(){
+		var url = '/Jobhunter/findAll';
+		$.get(baseURL+url,function(result){
+			result.data.forEach(function(item){
+				var newOption = $(`
+					<option value="`+item.id+`">`+item.id+`</option>
+				`);
+				$('#jobhunter_id').append(newOption);
+			})
+		});
+	}
+
+	// 查询所有用户名，放入搜索下拉框中
+	function searchUsername(){
+		var url = '/Jobhunter/findAll';
+		$.get(baseURL+url,function(result){
+			result.data.forEach(function(item){
+				var newOption = $(`
+					<option value="`+item.username+`">`+item.username+`</option>
+				`);
+				$('#username').append(newOption);
+			})
+		});
+	}
+
+
+	// ==============================文档加载后执行
+	$(function(){
+		// 初始化加载
+		initData();
+		searchEducation();
+		searchGender();
+		searchJobhunterId();
+		searchUsername();
+
+		// 为保存按钮绑定事件处理函数
+		$("#jobhunterModal #save").click(function(){
+			// 1. 获取参数
+			var id = $("#jobhunter_form input[name=id]").val();
+			var username = $("#input_username").val();
+			var realname = $("#input_realname").val();
+			var telephone = $("#input_telephone").val();
+			var gender = $("#input_gender").val();
+			var birth = $("#input_birth").val();
+			var education = $("#input_education").val();
+			var password = $("#input_password").val();
+			var workTime = $("#input_workTime").val();
+			var currentStatus = $("#input_currentStatus").val();
+			var resume = $("#input_resume").val();
+
+			// 2. 与后台进行交互	
+			var url = baseURL+"/Jobhunter/saveOrUpdate";
+			var data;
+			if (id) {
+				data = {
+					id:id,
+					username:username,
+					realname:realname,
+					telephone:telephone,
+					gender:gender,
+					birth:birth,
+					education:education,
+					password:password,
+					workTime:workTime,
+					currentStatus:currentStatus,
+					resume:resume
+				}
+			} else{
+				data = {
+					username:username,
+					realname:realname,
+					telephone:telephone,
+					gender:gender,
+					birth:birth,
+					education:education,
+					password:password,
+					workTime:workTime,
+					currentStatus:currentStatus,
+					resume:resume
+				}
+			}
+
+			$.post(url,data,function(result){
+				if(result.status === 200){
+					closeJobhunterModal();
+					alert(result.message);
+					initData();
+				} else {
+					alert(result.message);
+				}
+			});
+			$('#jobhunterModal').modal('hide');
+		})
+
+
+		// 为删除按钮/修改按钮绑定事件
+		$("#jobhunter_tbl > tbody").on("click","a",function(){
+			switch(this.className){
+
+				case "btn_del":
+					var id = $(this).parents("tr").find("input").val()
+					var url = baseURL+"/Jobhunter/deleteById";
+					var data = "id="+id;
+					$.post(url,data,function(result){
+						alert(result.message);
+						initData();
+					})
+					break;
+
+				case "btn_upd":
+					$("#jobhunterModal").modal("show");
+					var id = $(this).parents("tr").find("input").val();
+					var username = $(this).parents("tr").find("td:nth-child(2)").text();
+					var realname = $(this).parents("tr").find("td:nth-child(3)").text();
+					var telephone = $(this).parents("tr").find("td:nth-child(4)").text();
+					var gender = $(this).parents("tr").find("td:nth-child(5)").text();
+					var birth = $(this).parents("tr").find("td:nth-child(6)").text();
+					var education = $(this).parents("tr").find("td:nth-child(7)").text();
+					var password;
+					var workTime;
+					var currentStatus;
+					var resume;
+
+					var url = "/Jobhunter/findById"
+					var data = {
+						id:id
+					}
+					$.get(baseURL+url,data,function(response){
+						password = response.data.password;
+						workTime = response.data.workTime;
+						currentStatus = response.data.currentStatus;
+						resume = response.data.resume;
+
+						// 输出获取到的值
+						$("#jobhunter_form input[name='id']").val(id);
+						$("#jobhunter_form input[name='username']").val(username);
+						$("#jobhunter_form input[name='realname']").val(realname);
+						$("#jobhunter_form input[name='telephone']").val(telephone);
+						$("#jobhunter_form select[name='gender']").val(gender);
+						$("#jobhunter_form input[name='birth']").val(birth);
+						$("#jobhunter_form input[name='education']").val(education);
+						$("#jobhunter_form input[name='password']").val(password);
+						$("#jobhunter_form input[name='workTime']").val(workTime);
+						$("#jobhunter_form input[name='currentStatus']").val(currentStatus);
+						$("#jobhunter_form textarea[name='resume']").val(resume);
+					});
+
+					break;
+
+				// 查看详情
+				case "btn_details":
+					$("#detailsModal").modal("show");
+					var url = "/Jobhunter/findById"
+					var id = $(this).parents("tr").find("input").val();
+					var data = {
+						id:id
+					}
+					$.get(baseURL+url,data,function(response){
+						$("#details_content").empty();
+						var newDiv = $(`
+							<!-- 用户名 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_username">用户名：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.username+`</p>
+								</div>
+							</div>
+							<!-- /用户名 -->
+					
+							<!-- 姓名 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_realname">姓名：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.realname+`</p>
+								</div>
+							</div>
+							<!-- / 姓名 -->
+
+							<!-- 密码 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_password">密码：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.password+`</p>
+								</div>
+							</div>
+							<!-- / 密码 -->
+
+							<!-- 手机号 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_telephone">手机号：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.telephone+`</p>
+								</div>
+							</div>
+							<!-- / 手机号 -->
+
+							<!-- 性别 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_gender">性别：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.gender+`</p>
+								</div>
+							</div>
+							<!-- / 性别 -->
+
+							<!-- 出生年月 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_birth">出生年月：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.birth+`</p>
+								</div>
+							</div>
+							<!-- / 出生年月 -->
+
+							<!-- 最高学历 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_education">最高学历：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.education+`</p>
+								</div>
+							</div>
+							<!-- / 最高学历 -->
+							<!-- 工作时间 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_workTime">工作时间：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.workTime+`</p>
+								</div>
+							</div>
+							<!-- / 工作时间 -->
+
+							<!-- 目前现状 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_currentStatus">目前现状：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.currentStatus+`</p>
+								</div>
+							</div>
+							<!-- / 目前现状 -->
+
+							<!-- 简历 -->
+							<div class="row">
+								<div class="col-3 text-right">
+									<label for="input_resume">简历：</label>
+								</div>
+								<div class="col-8">
+									<p>`+response.data.resume+`</p>
+								</div>
+							</div>
+							<!-- / 简历 -->
+							`)
+						$("#details_content").append(newDiv);
+					});
+					break;
+			}
+		})
+
+		// 为添加按钮绑定事件处理函数
+		$("#btn_add_jobhunter").click(function(){
+			$('#jobhunterModal').modal("show");
+			$("#jobhunter_form input[name=id]").val('');
+		});
+		// 监听模态框的关闭
+		$('#jobhunterModal').on('hidden.bs.modal',function(e){
+			$(this).find("form")[0].reset();
+		});
+
+
+		// 根据学历查找求职者/Jobhunter/findByEducation
+		$('#education').on('change',function(){
+
+			// 将当前点击的option的值赋值给education
+			var education = $(this).val();
+			var url = '/Jobhunter/findByEducation';
+			var data = {
+				education:education
+			};
+			$.get(baseURL+url,data,function(result){
+				$('.table tbody').empty();
+				result.data.forEach(function(item){
+					var newSearchTr = $(`
+						<tr>
+					      	<td><input type="checkbox" value="`+item.id+`"></td>
+							<td>`+item.username+`</td>
+							<td>`+item.realname+`</td>
+							<td>`+item.telephone+`</td>
+							<td>`+item.gender+`</td>
+							<td>`+item.birth+`</td>
+							<td>`+item.education+`</td>
+							<td>
+								<a class="btn_del" href="javascript:void(0)" style="color:#40b6ff;">删除</a>
+								<a class="btn_upd" href="javascript:void(0)" style="color:#40b6ff;">修改</a>
+							</td>
+					    </tr>
+					`);
+					$('.table tbody').append(newSearchTr);
+				});
+			});
+		})
+
+		// 根据性别查找求职者/Jobhunter/findByGender
+		$('#gender').on('change',function(){
+
+			var gender = $(this).val();
+			var url = '/Jobhunter/findByGender';
+			var data = {
+				gender:gender
+			};
+			$.get(baseURL+url,data,function(result){
+				$('.table tbody').empty();
+				result.data.forEach(function(item){
+					var newSearchTr = $(`
+						<tr>
+					      	<td><input type="checkbox" value="`+item.id+`"></td>
+							<td>`+item.username+`</td>
+							<td>`+item.realname+`</td>
+							<td>`+item.telephone+`</td>
+							<td>`+item.gender+`</td>
+							<td>`+item.birth+`</td>
+							<td>`+item.education+`</td>
+							<td>
+								<a class="btn_del" href="javascript:void(0)" style="color:#40b6ff;">删除</a>
+								<a class="btn_upd" href="javascript:void(0)" style="color:#40b6ff;">修改</a>
+							</td>
+					    </tr>
+					`);
+					$('.table tbody').append(newSearchTr);
+				});
+			});
+		})
+
+		// 根据id查找求职者/Jobhunter/findById
+		$('#jobhunter_id').on('change',function(){
+
+			var id = $(this).val();
+			var url = '/Jobhunter/findById';
+			var data = {
+				id:id
+			};
+			$.get(baseURL+url,data,function(result){
+				$('.table tbody').empty();
+				var newSearchTr = $(`
+					<tr>
+				      	<td><input type="checkbox" value="`+result.data.id+`"></td>
+						<td>`+result.data.username+`</td>
+						<td>`+result.data.realname+`</td>
+						<td>`+result.data.telephone+`</td>
+						<td>`+result.data.gender+`</td>
+						<td>`+result.data.birth+`</td>
+						<td>`+result.data.education+`</td>
+						<td>
+							<a class="btn_del" href="javascript:void(0)" style="color:#40b6ff;">删除</a>
+							<a class="btn_upd" href="javascript:void(0)" style="color:#40b6ff;">修改</a>
+						</td>
+				    </tr>
+				`);
+				$('.table tbody').append(newSearchTr);
+			});
+		})
+
+		// 根据用户名查找求职者/Jobhunter/findByUsername
+		$('#username').on('change',function(){
+
+			var username = $(this).val();
+			var url = '/Jobhunter/findByUsername';
+			var data = {
+				username:username
+			};
+			$.get(baseURL+url,data,function(result){
+				$('.table tbody').empty();
+				result.data.forEach(function(item){
+					var newSearchTr = $(`
+						<tr>
+					      	<td><input type="checkbox" value="`+item.id+`"></td>
+							<td>`+item.username+`</td>
+							<td>`+item.realname+`</td>
+							<td>`+item.telephone+`</td>
+							<td>`+item.gender+`</td>
+							<td>`+item.birth+`</td>
+							<td>`+item.education+`</td>
+							<td>
+								<a class="btn_del" href="javascript:void(0)" style="color:#40b6ff;">删除</a>
+								<a class="btn_upd" href="javascript:void(0)" style="color:#40b6ff;">修改</a>
+							</td>
+					    </tr>
+					`);
+					$('.table tbody').append(newSearchTr);
+				});
+			});
+		})
+
+	})
+</script>

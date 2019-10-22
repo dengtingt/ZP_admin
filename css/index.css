@@ -1,0 +1,96 @@
+html,body,.index {
+	height: 100%;
+}
+body {
+	overflow: hidden;
+}
+.index {
+	font-size: 14px;
+	display: flow-root;
+}
+
+.logo{
+	width: 220px;
+	height: 55px;
+	background-color: #1D2B36;
+	background-image: url('../images/logo.png');
+	background-size: 100% 100%;
+	margin-bottom: 30px;
+}
+
+.index > .left {
+	width: 220px;
+	background-color: #1D2B36;
+	height: 100%;
+	float: left;
+	color: #fff;
+}
+.index > .left a {
+	color: #fff;
+	font-size: 16px;
+}
+
+.left >ul.left_nav li > .iconfont,
+.left >ul.left_nav li > .fa{
+	font-size: 20px;
+	margin-right: 8px;
+}
+
+.left >ul.left_nav > li{
+	text-align: center;
+	line-height: 3.5em;
+}
+
+
+.left >ul.left_nav > li.current{
+	background-color: #666;
+	color: #fff;
+}
+
+
+
+.index > .right {
+	height: 100%;
+	background-color: #ededed;
+	margin-left: 220px;
+}
+.index > .right > .top {
+	width: 100%;
+	height: 55px;
+	background-color: #fff;
+	padding: 10px;
+	display: flow-root;
+}
+.index > .right > .top ul {
+	float: right;
+	margin-right: 30px;
+}
+.index > .right > .top ul li {
+	border: none;
+}
+.index > .right > .top img {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+.index > .right >.content {
+	background-color: #F1F1F1;
+	height: 100%;
+	width: 100%;
+	padding: 30px;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+.wrapper {
+	height: 100%;
+}
+
+.mouseover {
+	background-color: #666;
+}
+
+
+.content .footer {
+	height: 80px;
+}

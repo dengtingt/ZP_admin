@@ -1,0 +1,295 @@
+<!-- ========================= 内容 ================================ -->
+<div class="module">
+	<!-- 导航栏 -->
+	<div class="container-fluid">
+		<div class="module_nav row">
+			<li class="list col-2">
+				城市管理
+			</li>
+			<li class="list col-2">
+				福利管理
+			</li>
+			<li class="list col-2">
+				职位管理
+			</li>
+		</div>
+	</div>
+	<!-- /导航栏 -->
+
+	<!-- 内容 -->
+	<div class="content">
+		<!-- 头部 -->
+		<div class="header">
+			<div class="btns text-right" id="add_province">
+				<button class="btn btn-primary btn-lg">
+					<i class="fa fa-info-circle mr-1"></i>添加省份
+				</button>
+			</div>
+		</div>
+		<!-- /头部 -->
+
+		<!-- 省份 -->
+		<div class="province_tbl">
+			
+		</div>
+		<!-- /省份 -->
+
+		<!-- 城市 -->
+		<div class="city_tbl">
+			
+		</div>
+		<!-- /城市 -->
+	</div>
+	<!-- /内容 -->
+</div>
+
+<!-- =========================== 样式 ============================= -->
+<style>
+	.module {
+		background-color: #F1F1F1;
+		width: 100%;
+		height: 100%;
+		font-size: 14px;
+	}
+	.list {
+		box-sizing: border-box;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		color: #999;
+	}
+	.module_nav li.list_current {
+		border-top: 3px solid #0072E3;
+		background-color: #fff;
+		color: #333;
+	}
+	.header {
+		box-sizing: border-box;
+		padding: 20px 0;
+	}
+	.header .btns{
+		line-height: 30px;
+		margin-bottom: 0;
+	}
+	.header button {
+		color: #fff;
+	}
+	.content {
+		height: 100%;
+		background-color: #fff;
+		box-sizing: border-box;
+		padding: 0 20px;
+	}
+
+
+	.content .province_tbl .tbl_header {
+		box-sizing: border-box;
+		padding: 0 15px;
+		color: #fff;
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+	}
+	.content .province_tbl .body {
+		line-height: 5em;
+		box-sizing: border-box;
+		padding: 0 50px;
+		border: 1px solid #333;
+	}
+	.content .province_tbl .body .addspan {
+		display: inline-block;
+	}
+	.content .province_tbl .body .addspan span {
+		background-color: #fff;
+		margin-right: 50px;
+	}
+
+
+	.content .city_tbl .input {
+		box-sizing: border-box;
+		padding: 3px 15px;
+		color: #666;
+		width: 100%;
+		height: 30px;
+	}
+	.content .city_tbl .input input {
+		font-size: 12px;
+		height: 20px;
+		width: 100px;
+		border: none;
+		border-radius: 3px;
+	}
+	.content .city_tbl .input button {
+		width: 50px;
+		height: 20px;
+		font-size: 12px;
+		border: none;
+		border-radius: 3px;
+	}
+	.content .city_tbl .body {
+		line-height: 5em;
+		border: 1px solid #333;
+		box-sizing: border-box;
+		padding: 0 50px;
+	}
+	.content .city_tbl .body span {
+		background-color: #fff;
+		margin-right: 50px;
+	}
+
+	.addspan input {
+		height: 27px;
+		border-radius: 3px;
+		border: 1px solid #999;
+	}
+	.addspan button {
+		height: 25px;
+	}
+</style>
+
+<!-- ============================= js ============================== -->
+
+<script>
+	// ===============================提前的函数声明
+	var baseURL = "http://203.195.246.58:7777";
+
+
+	// 初始化省份数据
+	function initData(){
+		var url = baseURL+"/Province/findAll";
+		// 控制ajax执行的顺序,可以将异步操作队列化，按照期望的顺序执行，返回符合预期的结果
+        var prommise = new Promise(function(resolve,reject) {
+        	$.get(url,function(response){
+				$(".province_tbl").empty();
+				if(response.data) {
+					resolve(response.data); // 如果有数据，通过数据，数据处理成功
+					response.data.map(function(item,index){
+						var newDiv = $(`
+							<div class="mb-4">
+								<input type="hidden" name="provinceId" value="`+item.id+`"/>
+								<div class="tbl_header bg-dark">`+item.name+`</div>
+								<div class="body province`+item.id+`">
+									<div class="addspan">
+
+									</div>
+									<a href="javascript:void(0)" class="add">添加</a>
+								</div>
+							</div>
+						`);
+						$('.province_tbl').append(newDiv);
+					})
+				} else {
+					reject("请求数据为空!") // 没有数据，数据处理失败
+				}
+			
+			})
+        })
+        // 回调函数，当resolve通过了数据，执行此函数
+        .then(function(data) { // data接收resolve(response.data)通过的数据
+        	// 查询城市数据
+           	$.get(baseURL+"/City/findAll",function(res) {
+           	   	res.data.map(function(item,index) {
+                  	for(var key in data) {
+                  	  	if(data[key].id === item.provinceId) {
+	                  	  	var newSpan = $(`
+								<span>`+item.name+`</span>
+	                  	  	`)
+	                  	  	$(".province"+data[key].id+" .addspan").append(newSpan);
+                  	  	}
+                  	}
+           	   	})
+           	})
+        })
+        // 当reject发生，捕获异常，返回错误
+        .catch(function(error){
+        	return error;
+        })
+	}
+
+	// ===============================文档加载完成后执行
+	$(function(){
+		initData();
+
+		// 为list添加点击事件
+		$(".module_nav").on("click","li",function(){
+			$(".module_nav li").removeClass("list_current");
+			$(this).addClass("list_current");
+		})
+		$(".module_nav > li:first-child").trigger("click");
+
+		// 为添加省份按钮绑定事件处理函数
+		$("#add_province").click(function(){
+			$(".city_tbl").empty();
+			var newDiv = $(`
+				<div class="input bg-dark">
+					<input type="hidden" name="id"/>
+					<input type="text" name="name" placeholder="  输入省份名称">
+					<button class="btn-light ml-2">确定</button>
+				</div>
+				<div class="body">
+					<a href="javascript:void(0)" class="add">添加</a>
+				</div>
+			`);
+			$('.city_tbl').append(newDiv);
+		})
+
+		// 为添加城市按钮绑定事件处理函数
+		$(".province_tbl").on("click","a",function(){
+			$(this).parents(".body").find("a.add").hide();
+			var newInput = $(`
+				<input type="hidden" name="id"/>
+				<input type="text" name="name" placeholder="请输入城市名称"/>
+				<button class="btn btn-primary btn-sm">添加</button>
+			`);
+			$(this).siblings(".addspan").append(newInput);
+		})
+
+		// 添加省份
+		$(".city_tbl").on("click","button",function(){
+			// 获取参数
+			var id = $(".city_tbl .input input[name='id']").val();
+			var name = $(".city_tbl .input input[name='name']").val();
+
+			// 与后台进行交互
+			var url = baseURL+"/Province/saveOrUpdate"
+			var data = {
+				id:id,
+				name:name
+			}
+			$.post(url,data,function(result){
+				if(result.status === 200){
+					alert(result.message);
+					// 更新完成后刷新数据
+					initData();
+				} else {
+					alert(result.message);
+				}
+			})
+		})
+
+		// 添加城市
+		$(".province_tbl").on("click","button",function(){
+			// 获取参数
+			var id = $(".province_tbl .addspan input[name='id']").val();
+			var provinceId = $(this).parents(".body").siblings("input[name='provinceId']").val();
+			var name = $(".province_tbl .addspan input[name='name']").val();
+
+			// 与后台进行交互
+			var url = baseURL+"/City/saveOrUpdate"
+			var data = {
+				id:id,
+				provinceId:provinceId,
+				name:name
+			}
+			$.post(url,data,function(result){
+				if(result.status === 200){
+					alert(result.message);
+					// 更新完成后刷新数据
+					initData();
+				} else {
+					alert(result.message);
+				}
+			})
+		})
+	})
+</script>
